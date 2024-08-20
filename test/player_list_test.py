@@ -3,6 +3,7 @@ from player_list import PlayerList
 from player_node import PlayerNode
 from player import Player
 
+
 class TestList(unittest.TestCase):
     def test_empty_list(self):
         empty_list = PlayerList()
