@@ -10,7 +10,7 @@ class TestList(unittest.TestCase):
 
     def test_filled_list(self):
         filled_list = PlayerList()
-        filled_player = Player("513", "Mark")
-        node = PlayerNode(filled_player)
+        dummy_player = Player("513", "Mark")
+        node = PlayerNode(dummy_player)
         filled_list.insert_at_head(node)
         self.assertFalse(filled_list.is_empty())
