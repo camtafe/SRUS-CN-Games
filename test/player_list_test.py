@@ -9,6 +9,11 @@ class TestList(unittest.TestCase):
         empty_list = PlayerList()
         self.assertTrue(empty_list.is_empty())
 
+    def test_removal_empty(self):
+        empty_list = PlayerList()
+        result = empty_list.delete_from_head()
+        self.assertIsNone(result)
+
     def test_head_insert_list(self):
         test_list = PlayerList()
         dummy_player = Player("000513", "Mark")
@@ -23,7 +28,7 @@ class TestList(unittest.TestCase):
         test_list.insert_at_tail(node)
         self.assertFalse(test_list.is_empty())
 
-    def test_head_delete_empty(self):
+    def test_head_delete_single(self):
         # create a list
         test_list = PlayerList()
         # create a test player
@@ -56,5 +61,33 @@ class TestList(unittest.TestCase):
         self.assertEqual(new_head, first_node)
         self.assertNotEqual(new_head, old_head)
 
+    def test_tail_delete_single(self):
+        # create test scenario
+        test_list = PlayerList()
+        dummy_player = Player("000513", "Mark")
+        dummy_node = PlayerNode(dummy_player)
+        # insert tail end node
+        test_list.insert_at_tail(dummy_node)
+        test_list.delete_from_head()
+        self.assertTrue(test_list.is_empty())
+
+    def test_tail_delete_multiple(self):
+        # prepare scenario with two nodes put in via tail insertion
+        test_list = PlayerList()
+        first_player = Player("000513", "Mark")
+        second_player = Player("000232", "Eugene")
+        first_node = PlayerNode(first_player)
+        second_node = PlayerNode(second_player)
+        test_list.insert_at_tail(first_node)
+        test_list.insert_at_tail(second_node)
+        # archive the old tail
+        old_tail = test_list.get_tail()
+        # remove the tail node
+        test_list.delete_from_tail()
+        # archive the new tail
+        new_tail = test_list.get_tail()
+        self.assertFalse(test_list.is_empty())
+        self.assertEqual(new_tail, first_node)
+        self.assertNotEqual(new_tail, old_tail)
 
 
