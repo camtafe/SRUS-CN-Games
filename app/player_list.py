@@ -46,8 +46,7 @@ class PlayerList:
         else:
             self.__head = self.__head.next
             self.__head.prev = None
-
-        return f"Removed Head: {node}"
+            return f"Removed Head: {node}"
 
     def delete_from_tail(self):
         if self.is_empty():
@@ -59,5 +58,4 @@ class PlayerList:
         else:
             self.__tail = self.__tail.prev
             self.__tail.next = None
-
-        return f"Removed Tail: {node}"
+            return f"Removed Tail: {node}"
