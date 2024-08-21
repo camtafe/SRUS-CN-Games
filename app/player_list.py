@@ -48,3 +48,16 @@ class PlayerList:
             self.__head.prev = None
 
         return f"Removed Head: {node}"
+
+    def delete_from_tail(self):
+        if self.is_empty():
+            return None
+        node = self.__tail
+        if self.__head == self.__tail:
+            self.__head = None
+            self.__tail = None
+        else:
+            self.__tail = self.__tail.prev
+            self.__tail.next = None
+
+        return f"Removed Tail: {node}"
