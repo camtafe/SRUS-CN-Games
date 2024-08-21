@@ -10,15 +10,51 @@ class TestList(unittest.TestCase):
         self.assertTrue(empty_list.is_empty())
 
     def test_head_insert_list(self):
-        filled_list = PlayerList()
-        dummy_player = Player("513", "Mark")
+        test_list = PlayerList()
+        dummy_player = Player("000513", "Mark")
         node = PlayerNode(dummy_player)
-        filled_list.insert_at_head(node)
-        self.assertFalse(filled_list.is_empty())
+        test_list.insert_at_head(node)
+        self.assertFalse(test_list.is_empty())
 
     def test_tail_insert_list(self):
-        filled_list = PlayerList()
-        dummy_player = Player("513", "Mark")
+        test_list = PlayerList()
+        dummy_player = Player("000513", "Mark")
         node = PlayerNode(dummy_player)
-        filled_list.insert_at_tail(node)
-        self.assertFalse(filled_list.is_empty())
+        test_list.insert_at_tail(node)
+        self.assertFalse(test_list.is_empty())
+
+    def test_head_delete_empty(self):
+        # create a list
+        test_list = PlayerList()
+        # create a test player
+        dummy_player = Player("000513", "Mark")
+        # create a test node using the test player
+        dummy_node = PlayerNode(dummy_player)
+        # insert the test node at the head of the list
+        test_list.insert_at_head(dummy_node)
+        # remove the inserted node from the list
+        test_list.delete_from_head()
+        # makes sure the list is empty post removal
+        self.assertTrue(test_list.is_empty())
+
+    def test_head_delete_multiple(self):
+        # prepare scenario with two nodes put in via head insertion
+        test_list = PlayerList()
+        first_player = Player("000513", "Mark")
+        second_player = Player("000232", "Eugene")
+        first_node = PlayerNode(first_player)
+        second_node = PlayerNode(second_player)
+        test_list.insert_at_head(first_node)
+        test_list.insert_at_head(second_node)
+        # archive the old head
+        old_head = test_list.get_head()
+        # remove the head node
+        test_list.delete_from_head()
+        # archive the new head
+        new_head = test_list.get_head()
+        self.assertFalse(test_list.is_empty())
+        self.assertEqual(new_head, first_node)
+        self.assertNotEqual(new_head, old_head)
+
+
+
