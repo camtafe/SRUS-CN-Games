@@ -9,9 +9,16 @@ class TestList(unittest.TestCase):
         empty_list = PlayerList()
         self.assertTrue(empty_list.is_empty())
 
-    def test_filled_list(self):
+    def test_head_insert_list(self):
         filled_list = PlayerList()
         dummy_player = Player("513", "Mark")
         node = PlayerNode(dummy_player)
         filled_list.insert_at_head(node)
+        self.assertFalse(filled_list.is_empty())
+
+    def test_tail_insert_list(self):
+        filled_list = PlayerList()
+        dummy_player = Player("513", "Mark")
+        node = PlayerNode(dummy_player)
+        filled_list.insert_at_tail(node)
         self.assertFalse(filled_list.is_empty())
