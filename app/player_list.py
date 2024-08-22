@@ -90,7 +90,7 @@ class PlayerList:
             while node is not None:
                 print(f"Player: {node.player}\n"
                       f"Name: {node.player.name}\n"
-                      f"User ID: {node.player.uid}")
+                      f"User ID: {node.player.uid}\n")
                 node = node.prev
 
 
