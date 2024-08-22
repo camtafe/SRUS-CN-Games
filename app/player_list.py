@@ -1,11 +1,15 @@
 class PlayerList:
     def __init__(self):
+        # head and tail of the linked list for identification purposes
         self.__head = None
         self.__tail = None
 
     def is_empty(self):
+        # returns if the list is empty or not via checking head is empty
         return self.__head is None
 
+    # getters for head and tail
+    # @property was giving me errors, I'm not sure why
     def get_head(self):
         return self.__head
 
@@ -38,6 +42,7 @@ class PlayerList:
 
     def delete_from_head(self):
         if self.is_empty():
+            # exits if no head to remove
             return None
         node = self.__head
         if self.__head == self.__tail:
