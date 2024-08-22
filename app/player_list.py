@@ -44,6 +44,8 @@ class PlayerList:
             self.__head = None
             self.__tail = None
         else:
+            # head marker set to the next node in line
+            # original head is removed
             self.__head = self.__head.next
             self.__head.prev = None
             return f"Removed Head: {node}"
@@ -56,6 +58,8 @@ class PlayerList:
             self.__head = None
             self.__tail = None
         else:
+            # tail marker is set to previous node
+            # the original tail is removed
             self.__tail = self.__tail.prev
             self.__tail.next = None
             return f"Removed Tail: {node}"
@@ -65,33 +69,47 @@ class PlayerList:
             return
         current_node = self.__head
         while current_node is not None:
+            # if the identified node has the targeted key, proceed
             if current_node.player.uid == key:
+                # removes the node from the head marker if identified as the head
                 if current_node == self.__head:
                     self.delete_from_head()
+                # same but tail
                 elif current_node == self.__tail:
                     self.delete_from_tail()
                 else:
                     # connect the pointers of the nodes around the removed to eachother
+                    # prevents the chain from breaking
                     current_node.prev.next = current_node.next
                     current_node.next.prev = current_node.prev
                 return
+            # continue to traverse until the node is None
             current_node = current_node.next
 
     def display_lists(self, forward=True):
-        if forward:
-            node = self.__head
-            while node is not None:
-                print(f"Player: {node.player}\n"
-                      f"Name: {node.player.name}\n"
-                      f"User ID: {node.player.uid}")
-                node = node.next
+        display = "Lists:\n"
+        # if the list is empty simply exit with Empty result
+        if self.is_empty():
+            display += "Empty"
+            return
         else:
-            node = self.__tail
+            # the targeted node is set to head if forward remains true as the default
+            # otherwise the tail will be selected
+            node = self.__head if forward else self.__tail
+            # while there is an identifiable node
             while node is not None:
-                print(f"Player: {node.player}\n"
-                      f"Name: {node.player.name}\n"
-                      f"User ID: {node.player.uid}\n")
-                node = node.prev
+                # marks the head and tail node if the targeted node is identified as the head or tail
+                # otherwise doesnt print anything
+                head_display = "Head " if node == self.__head else ""
+                tail_display = "Tail " if node == self.__tail else ""
+                # prints each node to the display with a marker if possible
+                display += f"-> {head_display}{tail_display} Name: {node.player.name} | User ID: {node.player.uid}\n"
+                # moves forward or backward up the chain depending on if forward is true or not
+                node = node.next if forward else node.prev
+        return display
+
+
+
 
 
 

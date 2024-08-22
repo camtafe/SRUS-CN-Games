@@ -6,7 +6,10 @@ from player import Player
 
 first_player = Player("000513", "Mark")
 second_player = Player("000232", "Eugene")
-
+third_player = Player("000747", "Darius")
+first_node = PlayerNode(first_player)
+second_node = PlayerNode(second_player)
+third_node = PlayerNode(third_player)
 
 class TestList(unittest.TestCase):
     def setUp(self):
@@ -42,8 +45,6 @@ class TestList(unittest.TestCase):
 
     def test_head_delete_multiple(self):
         # prepare scenario with two nodes via head insertion
-        first_node = PlayerNode(first_player)
-        second_node = PlayerNode(second_player)
         self.test_list.insert_at_head(first_node)
         self.test_list.insert_at_head(second_node)
         # archive the old head
@@ -67,8 +68,6 @@ class TestList(unittest.TestCase):
 
     def test_tail_delete_multiple(self):
         # prepare scenario with two nodes via tail insertion
-        first_node = PlayerNode(first_player)
-        second_node = PlayerNode(second_player)
         self.test_list.insert_at_tail(first_node)
         self.test_list.insert_at_tail(second_node)
         # archive the old tail
@@ -83,8 +82,6 @@ class TestList(unittest.TestCase):
 
     def test_delete_node_via_key_multiple(self):
         # prepare scenario with two nodes via tail insertion
-        first_node = PlayerNode(first_player)
-        second_node = PlayerNode(second_player)
         self.test_list.insert_at_tail(first_node)
         self.test_list.insert_at_tail(second_node)
         # archive the old tail
@@ -107,13 +104,25 @@ class TestList(unittest.TestCase):
         # check list is empty
         self.assertTrue(self.test_list.is_empty())
 
-    def display_test(self):
+    def display_test_multiple(self):
         # prepare scenario with two nodes put in via head insertion
-        first_node = PlayerNode(first_player)
-        second_node = PlayerNode(second_player)
         self.test_list.insert_at_head(first_node)
         self.test_list.insert_at_head(second_node)
-        # display the lists using both possible functionalities
-        # true = forwards from head, tail = backwards from tail
-        self.test_list.display_lists()
-        self.test_list.display_lists(forward=False)
+        self.test_list.insert_at_tail(third_node)
+
+        expected_forward_string = """Lists:
+    -> Head Name: Mark | User ID: 000513
+    -> Name: Eugene | User ID: 000232
+    -> Tail Name: Darius | User ID: 000747"""
+
+        expected_backward_string = """Lists:
+    -> Tail Name: Darius | User ID: 000747
+    -> Name: Eugene | User ID: 000232
+    -> Head Name: Mark | User ID: 000513
+        """
+        self.assertMultiLineEqual(self.test_list.display_lists(), expected_forward_string)
+        self.assertMultiLineEqual(self.test_list.display_lists(forward=False), expected_backward_string)
+
+    def display_list_empty(self):
+        expected_string = "Lists:\nEmpty"
+        self.assertMultiLineEqual(self.test_list.display(), expected_string)
