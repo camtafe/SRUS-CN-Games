@@ -1,6 +1,3 @@
-from player_node import PlayerNode
-from player import Player
-
 class PlayerList:
     def __init__(self):
         self.__head = None
@@ -79,4 +76,22 @@ class PlayerList:
                     current_node.next.prev = current_node.prev
                 return
             current_node = current_node.next
+
+    def display_lists(self, forward=True):
+        if forward:
+            node = self.__head
+            while node is not None:
+                print(f"Player: {node.player}\n"
+                      f"Name: {node.player.name}\n"
+                      f"User ID: {node.player.uid}")
+                node = node.next
+        else:
+            node = self.__tail
+            while node is not None:
+                print(f"Player: {node.player}\n"
+                      f"Name: {node.player.name}\n"
+                      f"User ID: {node.player.uid}")
+                node = node.prev
+
+
 
