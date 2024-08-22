@@ -14,6 +14,8 @@ third_node = PlayerNode(third_player)
 
 class TestList(unittest.TestCase):
     def setUp(self):
+        # creates a test_list variable that can be used in multiple test cases
+        # for redundancy purposes
         self.test_list = PlayerList()
 
     def test_empty_list(self):

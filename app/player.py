@@ -9,6 +9,7 @@ class Player:
         # returns the two data variables in the player object in the format of a string
         return f"Player(uid={self.__uid}, name={self.__name})"
 
+    # getters for mangled variables
     @property
     def uid(self):
         # outputs the uid inside the player object
