@@ -68,7 +68,6 @@ class PlayerList:
             return
         current_node = self.__head
         while current_node is not None:
-            print(f"Current Node: {current_node}")
             if current_node.player.uid == key:
                 if current_node == self.__head:
                     self.delete_from_head()
