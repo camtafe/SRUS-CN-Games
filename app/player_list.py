@@ -1,3 +1,6 @@
+from player_node import PlayerNode
+from player import Player
+
 class PlayerList:
     def __init__(self):
         self.__head = None
@@ -59,3 +62,22 @@ class PlayerList:
             self.__tail = self.__tail.prev
             self.__tail.next = None
             return f"Removed Tail: {node}"
+
+    def delete_via_key(self, key: str):
+        if self.is_empty():
+            return
+        current_node = self.__head
+        while current_node is not None:
+            print(f"Current Node: {current_node}")
+            if current_node.player.uid == key:
+                if current_node == self.__head:
+                    self.delete_from_head()
+                elif current_node == self.__tail:
+                    self.delete_from_tail()
+                else:
+                    # connect the pointers of the nodes around the removed to eachother
+                    current_node.prev.next = current_node.next
+                    current_node.next.prev = current_node.prev
+                return
+            current_node = current_node.next
+
