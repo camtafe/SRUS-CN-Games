@@ -83,7 +83,7 @@ class PlayerList:
                 elif current_node == self.__tail:
                     self.delete_from_tail()
                 else:
-                    # connect the pointers of the nodes around the removed to eachother
+                    # connect the pointers of the nodes around the removed to each other
                     # prevents the chain from breaking
                     current_node.prev.next = current_node.next
                     current_node.next.prev = current_node.prev
@@ -104,7 +104,7 @@ class PlayerList:
             # while there is an identifiable node
             while node is not None:
                 # marks the head and tail node if the targeted node is identified as the head or tail
-                # otherwise doesnt print anything
+                # otherwise doesn't print anything
                 head_display = "Head " if node == self.__head else ""
                 tail_display = "Tail " if node == self.__tail else ""
                 # prints each node to the display with a marker if possible
@@ -113,7 +113,36 @@ class PlayerList:
                 node = node.next if forward else node.prev
         return display
 
+    def display_item(self, key: str, forward=True):
+        display = "Item:"
+        # if the list is empty simply exit with Empty result
+        if self.is_empty():
+            display += "Empty"
+            return
+        else:
+            # the targeted node is set to head if forward remains true as the default
+            # otherwise the tail will be selected
+            node = self.__head if forward else self.__tail
+            # while there is an identifiable node
+            while node.player.uid is not key:
+                # prints each node to the display with a marker if possible
+                # moves forward or backward up the chain depending on if forward is true or not
+                node = node.next if forward else node.prev
+            else:
+                display += f"Name: {node.player.name} | User ID: {node.player.uid}\n"
+        return display
 
+
+    def find_item(self, key: str, forward=True):
+        item = None
+        if self.is_empty():
+            return
+        else:
+            node = self.__head if forward else self.__tail
+        while node.player.uid is not key and node is not None:
+            node = node.next if forward else node.prev
+        else:
+            return node.player
 
 
 

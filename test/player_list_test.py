@@ -1,7 +1,7 @@
 import unittest
-from player_list import PlayerList
-from player_node import PlayerNode
-from player import Player
+from app.player_list import PlayerList
+from app.player_node import PlayerNode
+from app.player import Player
 
 # dummy/test players and nodes for redundancy purposes
 first_player = Player("000513", "Mark")
