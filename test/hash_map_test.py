@@ -4,11 +4,12 @@ from app.player_node import PlayerNode
 from app.player import Player
 from app.hash_map import PlayerHashMap
 
-test_map = PlayerHashMap()
-test_map.put("derp", "dirk")
 
-#for i in range(10):
-#    print(i)
-#    print(test_map.hashmap[i].get_head())
+class TestCase(unittest.TestCase):
+    def setUp(self):
+        self.test_map = PlayerHashMap()
 
-print(test_map.get("derp"))
+    def test_hash_map_put_function(self):
+        self.test_map.put("testkey", "dirk")
+        player = Player("testkey", "dirk")
+        self.assertEqual(str(self.test_map.get("testkey")), "Player(uid=testkey, name=dirk)")
