@@ -113,26 +113,6 @@ class PlayerList:
                 node = node.next if forward else node.prev
         return display
 
-    def display_item(self, key: str, forward=True):
-        display = "Item:"
-        # if the list is empty simply exit with Empty result
-        if self.is_empty():
-            display += "Empty"
-            return
-        else:
-            # the targeted node is set to head if forward remains true as the default
-            # otherwise the tail will be selected
-            node = self.__head if forward else self.__tail
-            # while there is an identifiable node
-            while node.player.uid is not key:
-                # prints each node to the display with a marker if possible
-                # moves forward or backward up the chain depending on if forward is true or not
-                node = node.next if forward else node.prev
-            else:
-                display += f"Name: {node.player.name} | User ID: {node.player.uid}\n"
-        return display
-
-
     def find_item(self, key: str, forward=True):
         item = None
         if self.is_empty():
@@ -144,6 +124,14 @@ class PlayerList:
         else:
             return node.player
 
-
-
-
+    def length(self, forward=True):
+        size = 0
+        if self.is_empty():
+            return size
+        else:
+            node = self.__head if forward else self.__tail
+        while node is not None:
+            size += 1
+            node = node.next if forward else node.prev
+        else:
+            return size
