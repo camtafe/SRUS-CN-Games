@@ -10,26 +10,24 @@ class PlayerHashMap:
         # hashmap
         self.hashmap = [PlayerList() for _ in range(self.SIZE)]
 
-    def put(self, key: str, name: str):
+    def calculate_hash(self, key: str) -> int:
         hash_total = 0
         for char in key:
             hash_total += ord(char)
         bucket = hash_total % self.SIZE
+        return bucket
+
+    def put(self, key: str, name: str):
+        bucket = self.calculate_hash(key)
         self.hashmap[bucket].insert_at_head(PlayerNode(Player(key, name)))
 
     def get(self, key):
-        hash_total = 0
-        for char in key:
-            hash_total += ord(char)
-        bucket = hash_total % self.SIZE
+        bucket = self.calculate_hash(key)
         item = self.hashmap[bucket].find_item(key)
         return item
 
     def remove(self, key):
-        hash_total = 0
-        for char in key:
-            hash_total += ord(char)
-        bucket = hash_total % self.SIZE
+        bucket = self.calculate_hash(key)
         self.hashmap[bucket].delete_via_key(key)
 
     def size(self):
