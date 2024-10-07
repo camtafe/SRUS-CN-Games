@@ -100,25 +100,31 @@ class TestList(unittest.TestCase):
         # check list is empty
         self.assertTrue(self.test_list.is_empty())
 
-    def display_test_multiple(self):
+    def test_display_test_multiple(self):
         # prepare scenario with two nodes put in via head insertion
         self.test_list.insert_at_head(first_node)
         self.test_list.insert_at_head(second_node)
         self.test_list.insert_at_tail(third_node)
 
+        #create expected string
         expected_forward_string = """Lists:
-    -> Head Name: Mark | User ID: 000513
-    -> Name: Eugene | User ID: 000232
-    -> Tail Name: Darius | User ID: 000747"""
+-> Head  Name: Eugene | User ID: 000232
+-> Name: Mark | User ID: 000513
+-> Tail  Name: Darius | User ID: 000747
 
+    """
         expected_backward_string = """Lists:
-    -> Tail Name: Darius | User ID: 000747
-    -> Name: Eugene | User ID: 000232
-    -> Head Name: Mark | User ID: 000513
-        """
-        self.assertMultiLineEqual(self.test_list.display_lists(), expected_forward_string)
-        self.assertMultiLineEqual(self.test_list.display_lists(forward=False), expected_backward_string)
+-> Tail Name: Darius | User ID: 000747
+-> Name: Eugene | User ID: 000232
+-> Head Name: Mark | User ID: 000513
+    
+    """
 
-    def display_list_empty(self):
+        print(self.test_list.display_lists(forward=False))
+        self.assertMultiLineEqual(self.test_list.display_lists(), expected_forward_string)
+        self.assertMultiLineEqual(str(self.test_list.display_lists(forward=False)), expected_backward_string)
+
+    def test_display_list_empty(self):
         expected_string = "Lists:\nEmpty"
-        self.assertMultiLineEqual(self.test_list.display_lists(), expected_string)
+
+        self.assertMultiLineEqual(str(self.test_list.display_lists()), expected_string)

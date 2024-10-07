@@ -36,3 +36,18 @@ class PlayerHashMap:
             total_players += player_list.length()
         print(f"Total Hash Map Size: {total_players}")
         return total_players
+
+    def display(self):
+        display = ""
+        display += "#############\n"
+        display += "# Hash Maps #\n"
+
+        bucket_amount = 0
+        for bucket in self.hashmap:
+            display += "#############\n"
+            display += f"# Bucket {bucket_amount}  #\n"
+            display += "#############\n"
+            display += f"{bucket.display_lists()}\n"
+            bucket_amount += 1
+        print(display)
+        return display

@@ -95,7 +95,6 @@ class PlayerList:
         display = "Lists:\n"
         # if the list is empty simply exit with Empty result
         if self.is_empty():
-            display += "Empty"
             return
         else:
             # the targeted node is set to head if forward remains true as the default
