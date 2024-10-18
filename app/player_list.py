@@ -7,6 +7,7 @@ class PlayerList:
     def is_empty(self):
         # returns if the list is empty or not via checking head is empty
         return self.__head is None
+        return self.__tail is None
 
     # getters for head and tail
     # @property was giving me errors, I'm not sure why
@@ -95,7 +96,7 @@ class PlayerList:
         display = "Lists:\n"
         # if the list is empty simply exit with Empty result
         if self.is_empty():
-            return
+            return display + "Empty"
         else:
             # the targeted node is set to head if forward remains true as the default
             # otherwise the tail will be selected
@@ -110,6 +111,10 @@ class PlayerList:
                 display += f"-> {head_display}{tail_display} Name: {node.player.name} | User ID: {node.player.uid}\n"
                 # moves forward or backward up the chain depending on if forward is true or not
                 node = node.next if forward else node.prev
+                if node:
+                    print(f"Next node is: {node.player.name}")
+                else:
+                    print("No more nodes to traverse.")
         return display
 
     def find_item(self, key: str, forward=True):
