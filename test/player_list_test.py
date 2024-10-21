@@ -71,7 +71,7 @@ class TestList(unittest.TestCase):
         old_tail = self.test_list.get_tail()
         # remove the tail node
         self.test_list.delete_via_key("000232")
-        # archive the new tail
+        # archive the new tail to compare to old tail
         new_tail = self.test_list.get_tail()
         self.assertFalse(self.test_list.is_empty())
         self.assertEqual(new_tail, self.first_node)
