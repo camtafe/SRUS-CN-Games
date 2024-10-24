@@ -33,7 +33,7 @@ class PlayerList:
         if self.is_empty():
             """
             if the player list is empty, the new node becomes head and tail
-            as there is no other nodes to connect itself towards
+            as there is no other nodes to connect itself towards else the new node becomes the head
             """
             self._head = node
             self._tail = node
