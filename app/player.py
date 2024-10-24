@@ -9,16 +9,22 @@ class Player:
         self._name = name
 
     def __str__(self):
-        # returns the two data variables in the player object in the format of a string
+        """
+        returns the two data variables in the player object in the format of a string
+        """
         return f"Player(uid={self._uid}, name={self._name})"
 
     # getters for mangled variables
     @property
     def uid(self):
-        # outputs the uid inside the player object
+        """
+        outputs the uid inside the player object
+        """
         return self._uid
 
     @property
     def name(self):
-        # outputs the name inside the player object
+        """
+        outputs the name inside the player object
+        """
         return self._name

@@ -1,10 +1,18 @@
 class PlayerNode:
     def __init__(self, player):
+        """
+        _player - the player object that is encapsulated inside the node with all its data
+        _next - the next player node in front of the current node
+        _prev - the previous player node behind the current node
+        """
         self._player = player
         self._next = None
         self._prev = None
 
-    # getters and setters of mangled variables for privacy purposes
+    """
+    getters and setters of protected variables, this is so they are not accessed directly but are accessible
+    via the subclasses 
+    """
     @property
     def player(self):
         return self._player
@@ -29,6 +37,8 @@ class PlayerNode:
     def key(self) -> str:
         return self._player.uid
 
-    # lists the variables inside the player node in string form
     def __str__(self):
+        """
+        lists the variables inside the player node in string form
+        """
         return f"Player Node(Name:{self._player.name}, uid:{self.key})"

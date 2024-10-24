@@ -6,6 +6,10 @@ from app.player import Player
 
 class TestList(unittest.TestCase):
     def setUp(self):
+        """
+        Creates a common test data format for all the player list tests
+        Ensures each test has a fresh PlayerList and PlayerNode instances while reducing repetition
+        """
         self.test_list = PlayerList()
         first_player = Player("000513", "Mark")
         second_player = Player("000232", "Eugene")
@@ -14,64 +18,70 @@ class TestList(unittest.TestCase):
         self.second_node = PlayerNode(second_player)
         self.third_node = PlayerNode(third_player)
 
-    def test_empty_list(self):
+    def test_empty_list_with_no_insertions(self):
         self.assertTrue(self.test_list.is_empty())
 
-    def test_removal_empty(self):
-        empty_list = PlayerList()
-        result = empty_list.delete_from_head()
+    def test_removal_empty_is_none(self):
+        result = self.test_list.delete_from_head()
         self.assertIsNone(result)
 
-    def test_head_insert_list(self):
+    def test_head_insert_list_isnt_empty(self):
         self.test_list.insert_at_head(self.first_node)
         self.assertFalse(self.test_list.is_empty())
 
-    def test_tail_insert_list(self):
+    def test_tail_insert_list_isnt_empty(self):
         self.test_list.insert_at_tail(self.first_node)
         self.assertFalse(self.test_list.is_empty())
 
-    def test_head_delete_single(self):
+    def test_head_delete_single_is_empty(self):
         self.test_list.insert_at_head(self.first_node)
         self.test_list.delete_from_head()
         self.assertTrue(self.test_list.is_empty())
 
-    def test_head_delete_multiple(self):
-        self.test_list.insert_at_head(self.first_node)
-        self.test_list.insert_at_head(self.second_node)
-        old_head = self.test_list.get_head()
-        self.test_list.delete_from_head()
-        new_head = self.test_list.get_head()
-        self.assertFalse(self.test_list.is_empty())
-        self.assertEqual(new_head, self.first_node)
-        self.assertNotEqual(new_head, old_head)
-
-    def test_tail_delete_single(self):
+    def test_tail_delete_single_is_empty(self):
         self.test_list.insert_at_tail(self.first_node)
         self.test_list.delete_from_head()
         # check list is empty
         self.assertTrue(self.test_list.is_empty())
 
+    def test_head_delete_multiple(self):
+        """
+        creates and archives an old and new head to compare to each other
+        for the sake of proving the head has changed via deleting through the use of the
+        deleting the head in a multinode situation
+        """
+        self.test_list.insert_at_head(self.first_node)
+        self.test_list.insert_at_head(self.second_node)
+
+        old_head = self.test_list.get_head()
+        self.test_list.delete_from_head()
+        new_head = self.test_list.get_head()
+
+        self.assertFalse(self.test_list.is_empty())
+        self.assertEqual(new_head, self.first_node)
+        self.assertNotEqual(new_head, old_head)
+
+
     def test_tail_delete_multiple_via_tail(self):
         self.test_list.insert_at_tail(self.first_node)
         self.test_list.insert_at_tail(self.second_node)
-        # archive the old tail for test purposes
+
         old_tail = self.test_list.get_tail()
-        # remove the tail node
         self.test_list.delete_from_tail()
-        # archive the new tail to compare to confirm change
         new_tail = self.test_list.get_tail()
+
         self.assertFalse(self.test_list.is_empty())
         self.assertEqual(new_tail, self.first_node)
         self.assertNotEqual(new_tail, old_tail)
 
     def test_delete_node_via_key_multiple(self):
+        """
+        testing the same situation as prior but using the delete key method
+        """
         self.test_list.insert_at_tail(self.first_node)
         self.test_list.insert_at_tail(self.second_node)
-        # archive the old tail
         old_tail = self.test_list.get_tail()
-        # remove the tail node
         self.test_list.delete_via_key("000232")
-        # archive the new tail to compare to old tail
         new_tail = self.test_list.get_tail()
         self.assertFalse(self.test_list.is_empty())
         self.assertEqual(new_tail, self.first_node)
@@ -79,12 +89,14 @@ class TestList(unittest.TestCase):
 
     def test_delete_node_via_key_single(self):
         self.test_list.insert_at_tail(self.first_node)
-        # delete via player key
         self.test_list.delete_via_key("000513")
-        # check list is empty
         self.assertTrue(self.test_list.is_empty())
 
     def test_display_string_test_multiple_insertions(self):
+        """
+        Tests that the insertions of the nodes in order are displayed correctly when ordered from
+        Head to Tail or Tail to Head based on the display_lists() method
+        """
         self.test_list.insert_at_head(self.first_node)
         self.test_list.insert_at_head(self.second_node)
         self.test_list.insert_at_tail(self.third_node)

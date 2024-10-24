@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from app.player_node import PlayerNode
 
 
@@ -13,15 +12,17 @@ class PlayerList:
         head and tail of the linked list for identification purposes
         _head - the node marked as the head node of the player list
         _tail - the node marked as the tail node of the player list
+
+        the head and tail are protected attributes as displayed by an '_' in their variable name
+        so that they are encapsulated but are able to modified by the subclass methods that are designed to alter them
+        while maintaining their integrity
         """
         self._head = None
         self._tail = None
 
     def is_empty(self) -> bool:
-        # returns if the list is empty or not via checking head is empty
         return self._head is None or self._tail is None
 
-    # getters for head and tail
     def get_head(self):
         return self._head
 
@@ -30,7 +31,10 @@ class PlayerList:
 
     def insert_at_head(self, node: PlayerNode | None):
         if self.is_empty():
-            # empty so new node becomes head and tail
+            """
+            if the player list is empty, the new node becomes head and tail
+            as there is no other nodes to connect itself towards
+            """
             self._head = node
             self._tail = node
         else:
@@ -38,7 +42,7 @@ class PlayerList:
             self._head.prev = node
             self._head = node
 
-    def insert_at_tail(self, node):
+    def insert_at_tail(self, node: PlayerNode | None):
         if self.is_empty():
             self._head = node
             self._tail = node
@@ -58,8 +62,7 @@ class PlayerList:
             self._head = None
             self._tail = None
         else:
-            # head marker set to the next node in line
-            # original head is removed
+            # original head is removed, head marker set to the next node in line
             self._head = self._head.next
             self._head.prev = None
             return f"Removed Head: {node}"
@@ -101,6 +104,11 @@ class PlayerList:
             current_node = current_node.next
 
     def display_lists(self, forward=True):
+        """
+        Cycles through the linked list, displaying the nodes in order
+        from head to tail or tail to head depending on if forward bool is true or false
+
+        """
         display = "Lists:\n"
         # if the list is empty simply exit with Empty result
         if self.is_empty():
@@ -119,13 +127,15 @@ class PlayerList:
                 display += f"-> {head_display}{tail_display} Name: {node.player.name} | User ID: {node.player.uid}\n"
                 # moves forward or backward up the chain depending on if forward is true or not
                 node = node.next if forward else node.prev
-                if node:
-                    print(f"Next node is: {node.player.name}")
-                else:
-                    print("No more nodes to traverse.")
         return display
 
     def find_item(self, key: str, forward=True):
+        """
+        Traverses the
+        :param key:
+        :param forward:
+        :return:
+        """
         item = None
         if self.is_empty():
             return
@@ -137,6 +147,9 @@ class PlayerList:
             return node.player
 
     def length(self, forward=True):
+        """
+        Traverses the player list and adds to a counter each time it passes a node that isn't empty.
+        """
         size = 0
         if self.is_empty():
             return size

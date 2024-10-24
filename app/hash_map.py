@@ -5,12 +5,20 @@ from app.player_node import PlayerNode
 
 class PlayerHashMap:
     def __init__(self):
-        #
+        """
+        SIZE - the amount of buckets within the hashmap
+        hashmap - the PlayerList data mapped into hashing algorithms for the efficiency
+        """
         self.SIZE = 10
-        # hashmap
         self.hashmap = [PlayerList() for _ in range(self.SIZE)]
 
-    def calculate_hash(self, key: str) -> int:
+    def calculate_hash(self, key: str):
+        """
+        the hash is calculated by gathering a total amount for each key
+        the ordinal of each character of the assigned key of the node is added together
+        using the modulus function to assign it to a bucket within the small range
+        as the modulus cannot be greater than the divisor there is no issue with size
+        """
         hash_total = 0
         for char in key:
             hash_total += ord(char)
